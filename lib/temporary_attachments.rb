@@ -38,7 +38,7 @@ module TemporaryAttachments
       # store upload in new temp file
       if self.errors[name].empty? && self.errors["#{name}_content_type"].empty?
         file_path = self.send(name).queued_for_write[:original].path
-        temp = TempAttachment.create(:file => File.new(file_path))    
+        temp = ::TempAttachment.create(:file => File.new(file_path))    
         self.send("#{name}_temp_attachment=", temp)
       end
     }
