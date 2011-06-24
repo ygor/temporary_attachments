@@ -1,4 +1,4 @@
-Welcome to Temporary Uploads
+Welcome to Temporary Attachments
 ==========================
 
 Temporarily save a valid uploaded paperclip attachment when the form of a new active record instance has other validation errors.  
@@ -6,19 +6,15 @@ Temporarily save a valid uploaded paperclip attachment when the form of a new ac
 How do I use it?
 ----------------
 
-First include the library in your class:
+For the attachments that should be uploaded temporarily add
 
-    include TemporaryUploads
-
-For each attachment that should be uploaded temporarily add
-
-    has_temporary_uploads :attachment_name
+    has_temporary_attachments :attachment1_name, :attachment2_name
     
 Run the this migration
 
-    class CreateTempUploads < ActiveRecord::Migration
+    class CreateTempAttachments < ActiveRecord::Migration
       def self.up
-        create_table :temp_uploads do |t|
+        create_table :temp_attachments do |t|
           t.string :file_file_name
           t.string :file_content_type
           t.integer :file_file_size
@@ -28,17 +24,17 @@ Run the this migration
       end
 
       def self.down
-        drop_table :temp_uploads
+        drop_table :temp_attachments
       end
     end
 
-In your resource controller, add the following call to preserve_uploads
+In your resource controller, add the following call to preserve_attachments
 
     def create
       unless @model.save
         redirect_to #
       else
-        @model.preserve_uploads
+        @model.preserve_attachments
         render :new
       end
     end
@@ -47,9 +43,9 @@ Then in your views do
 
     <% if f.object.attachment_name_temp_upload.present?%>
        <div>
-         <%= f.hidden_field :attachment_name_temp_upload_id, :value => f.object.attachment_name_temp_upload.id, :class => 'temp_upload' %>
-         <%= image_tag f.object.attachment_name_temp_upload.file.url(:thumb) # use this if your attachment is an image %>
-         <p><%= content_tag :span, 'Clear', :class => 'link', :onclick => '$(this).closest(\'div\').find(\'input.temp_upload\').val(0);$(this).closest(\'div\').hide();'%></p>
+         <%= f.hidden_field :attachment_name_temp_attachment_id, :value => f.object.attachment_name_temp_attachment.id, :class => 'temp_attachment' %>
+         <%= image_tag f.object.attachment_name_temp_attachment.file.url(:thumb) # use this if your attachment is an image %>
+         <p><%= content_tag :span, 'Clear', :class => 'link', :onclick => '$(this).closest(\'div\').find(\'input.temp_attachment\').val(0);$(this).closest(\'div\').hide();'%></p>
        </div>  
      <% end %>
 
