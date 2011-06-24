@@ -6,11 +6,15 @@ Temporarily save a valid uploaded paperclip attachment when the form of a new ac
 How do I use it?
 ----------------
 
-For the attachments that should be uploaded temporarily add
+Install the plugin with
+
+   rails plugin install git@github.com:ygor/temporary_uploads.git
+
+Then for the attachments of a model that should be uploaded temporarily add the following to the model class
 
     has_temporary_attachments :attachment1_name, :attachment2_name
     
-Run the this migration
+Next run this migration
 
     class CreateTempAttachments < ActiveRecord::Migration
       def self.up
