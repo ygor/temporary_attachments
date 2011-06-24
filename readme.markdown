@@ -28,7 +28,7 @@ Run the this migration
       end
     end
 
-Create the models/temp_attachment.rb and add
+Create the file models/temp_attachment.rb and add
 
     class TempAttachment < ActiveRecord::Base
       has_attached_file :file, :styles => { :medium => "420x320#", :thumb => "100x100>" }
@@ -50,7 +50,7 @@ Then in your views do
     <% if f.object.attachment_name_temp_attachment.present?%>
        <div>
          <%= f.hidden_field :attachment_name_temp_attachment_id, :value => f.object.attachment_name_temp_attachment.id, :class => 'temp_attachment' %>
-         <%= image_tag f.object.attachment_name_temp_attachment.file.url(:thumb) # use this if your attachment is an image %>
+         <%= image_tag f.object.attachment_name_temp_attachment.file.url(:thumb) %> <!-- only use this if your file is an image -->
          <p><%= content_tag :span, 'Clear', :class => 'link', :onclick => '$(this).closest(\'div\').find(\'input.temp_attachment\').val(0);$(this).closest(\'div\').hide();'%></p>
        </div>  
      <% end %>
